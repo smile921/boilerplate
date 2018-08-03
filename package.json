@@ -14,7 +14,8 @@
     "test": "yarn unit && yarn e2e",
     "test:ci": "yarn lint && yarn unit --coverage --ci && yarn e2e",
     "new": "hygen new",
-    "docs": "vuepress dev"
+    "docs": "vuepress dev",
+    "docs-build": "vuepress build"
   },
   "gitHooks": {
     "pre-commit": "cross-env PRE_COMMIT=true lint-staged"
