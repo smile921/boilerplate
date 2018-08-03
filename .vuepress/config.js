@@ -1,11 +1,12 @@
 const appConfig = require('../src/app.config')
 
 module.exports = {
-  title: appConfig.title + ' Docs',
+  title: appConfig.title + ' ... ',
   description: appConfig.description,
   themeConfig: {
     sidebar: [
       ['/', 'Introduction'],
+      '/docs/notes',
       '/docs/guide/development',
       '/docs/guide/architecture',
       '/docs/guide/tech',
