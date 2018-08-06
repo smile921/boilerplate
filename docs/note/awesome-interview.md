@@ -46,6 +46,22 @@
 
 [CyC2018/Interview-Notebook](https://github.com/CyC2018/Interview-Notebook) 学习笔记，包含算法✏️	操作系统💻	网络☁️	面向对象👫	数据库💾	Java ☕️	系统设计💡	工具🔨	编码实践🙊	后记等等 主题
 
+### Snailclimb/Java-Guide
+
+[Snailclimb/Java-Guide](https://github.com/Snailclimb/Java-Guide) Java面试通关手册（Java学习指南）Java Interview Customs Manual (Java Study Guide) 该文档主要是笔主在学习Java的过程中的一些学习笔记，但是为了能够涉及到大部分后端学习所需的技术知识点我也会偶尔引用一些别人的优秀文章的链接。 该文档涉及的主要内容包括： Java、 数据结构与算法、计算机网络与数据通信、 操作系统、主流框架、数据存储、架构、面试必备知识点等等。相信不论你是前端还是后端都能在这份文档中收获到东西
+
+### oldratlee/fucking-java-concurrency
+
+### point_right 通过Demo演示出Java中并发问题。
+
+*整理Demo的原因*
+* 可以观察到的实际现象 see_no_evil 比 说说的并发原则 speak_no_evil 更直观更可信。
+* Java语言标准库支持线程，语言本身（如GC）以及应用（服务器端The Server side）中会重度使用多线程。
+* 并发程度设计在分析和实现中，复杂度大大增加。 如果不系统理解和充分分析并发逻辑，随意写代码，这样的程序用 『碰巧』 能运行出正确结果 来形容一点都不为过。
+[一些并发的问题讨论和资料](https://github.com/oldratlee/fucking-java-concurrency#%E4%B8%80%E4%BA%9B%E5%B9%B6%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98%E8%AE%A8%E8%AE%BA%E5%92%8C%E8%B5%84%E6%96%99)
+
+[oldratlee/fucking-java-concurrency](https://github.com/oldratlee/fucking-java-concurrency) 通过Demo演示出Java中并发问题。
+
 ### xingshaocheng/architect-awesome 架构师图谱
 
 [xingshaocheng/architect-awesome](https://github.com/xingshaocheng/architect-awesome)
@@ -56,12 +72,25 @@
 ### donnemartin/system-design-primer
 [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) 系统架构设计
 
+### winterbe/java8-tutorial
+
+[winterbe/java8-tutorial](https://github.com/winterbe/java8-tutorial)
+
+### cxxr/better-java
+
+[cxxr/better-java](https://github.com/cxxr/better-java)
+
+### giantray/stackoverflow-java-top-qa
+
+[giantray/stackoverflow-java-top-qa](https://github.com/giantray/stackoverflow-java-top-qa)
+
 ### akullpp/awesome-java
 [akullpp/awesome-java](https://github.com/akullpp/awesome-java)
 [Vedenin/useful-java-links](https://github.com/Vedenin/useful-java-links)
 
 ## Blog 精选
 
+* [javadoop.com](https://javadoop.com/)
 * [Java 进阶](https://crossoverjie.top/categories/Java-%E8%BF%9B%E9%98%B6/)
 * [aooy/blog](https://github.com/aooy/blog)
 * [creeperyang/blog](https://github.com/creeperyang/blog)
@@ -71,3 +100,5 @@
 * [RxJS-CN/rxjs-articles-translation](https://github.com/RxJS-CN/rxjs-articles-translation)
 * [RxJS-CN/learn-rxjs-operators](https://github.com/RxJS-CN/learn-rxjs-operators)
 * [seven1m / 30-days-of-elixir](https://github.com/seven1m/30-days-of-elixir)
+* [程序员DD](http://blog.didispace.com)
+* [纯洁的微笑](http://www.mooooc.com)
