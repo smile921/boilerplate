@@ -8,6 +8,7 @@ module.exports = {
       ['/', 'Introduction'],
       '/docs/notes', ['/docs/note/about-lock', '乐观锁与悲观锁'],
       ['/docs/note/java/jvm-memory', 'jvm 内存模型'],
+      ['/docs/note/java/JVM-Architecture', 'JVM Architecture'],
       ['/docs/note/java/message-queue', '消息队列'],
       '/docs/guide/development',
       '/docs/guide/architecture',

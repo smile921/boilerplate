@@ -1,8 +1,7 @@
-# message queue
-
+==
 # 分布式通讯
 
-## 问题描述：
+# 问题描述：
 > 网站(Website)上人工操作产生的数据更新，需要通知到多台对外Web Service服务器(Server)上
 
 另外，由于需要和多中不同类型的Server通讯，
@@ -16,10 +15,10 @@
 `Website` --> `Business-layer` --> `Broker` <--> `Server`
 
 
-参看流程图
+参看流程图 
 
 
-## 通讯需求
+# 通讯需求
 
 1. 可靠、时序
 1. 各台Server间的数据基本保持一致
@@ -27,13 +26,13 @@
 1. `Server`对性能要求很高，尽量少占用其计算资源
 1. `Website`和`Broker`操作同一个数据库，分别负责写和读
 
-## 备选的实现方案
+# 备选的实现方案
 
-1. 服务器轮询:
+1. 服务器轮询: 
 
     `Server`鸭梨太大
 
-2. HTTP推送:
+2. HTTP推送: 
 
 3. Redis消息队列：
 
@@ -43,7 +42,7 @@
 
 6. AMQP/RabbitMQ等消息队列中间件
 
-## 现在的实现方案
+# 现在的实现方案
 
 ### A. `Website` --> `Broker` : Redis消息队列
 
@@ -60,7 +59,7 @@
 
 2. `Broker`宕机：
 
-    由于`Broker`作用很关键，因此当`Broker`宕机时，`Website`更新数据将会返回失败。
+    由于`Broker`作用很关键，因此当`Broker`宕机时，`Website`更新数据将会返回失败。 
 
 
 ### B. `Broker` --> `Server` : HTTP 推送
