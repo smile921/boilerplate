@@ -82,7 +82,7 @@ JAVA虚拟机有一条在堆中分配新对象的指令，却没有释放内存�
 
 *   String类型在上图的什么位置？yes，属于引用类型下面的类类型。下面开始对String类型的挖掘！
 
-**1****、String的本质**
+### **1****、String的本质**
   打开String的源码，类注释中有这么一段话“Strings are constant; their values cannot be changed after they are created. String buffers support mutable strings.Because String objects are immutable they can be shared.”。这句话总结归纳了String的一个最重要的特点：String是值不可变(immutable)的常量，是线程安全的(can be shared)。
   接下来，String类使用了final修饰符，表明了String类的第二个特点：String类是不可继承的。
   下面是String类的成员变量定义，从类的实现上阐明了String值是不可变的(immutable)。
@@ -92,7 +92,7 @@ JAVA虚拟机有一条在堆中分配新对象的指令，却没有释放内存�
 
 **总结：****String****实质是字符数组，两个特点：****1****、该类不可被继承；****2****、不可变性****(immutable)****。**
 
-**2****、String的定义方法**
+### **2****、String的定义方法**
   在讨论String的定义方法之前，先了解一下常量池的概念，前面在介绍方法区的时候已经提到过了。下面稍微正式的给一个定义吧。
   常量池(constant pool)指的是在编译期被确定，并被保存在已编译的.class文件中的一些数据。它包括了关于类、方法、接口等中的常量，也包括字符串常量。常量池还具备动态性，运行期间可以将新的常量放入池中，String类的intern()方法是这一特性的典型应用。不懂吗？后面会介绍intern方法的。虚拟机为每个被装载的类型维护一个常量池，池中为该类型所用常量的一个有序集合，包括直接常量(string、integer和float常量)和对其他类型、字段和方法的符号引用（与对象引用的区别？读者可以自己去了解）。
 
@@ -135,7 +135,7 @@ JAVA虚拟机有一条在堆中分配新对象的指令，却没有释放内存�
 
 *   **为什么直接定义的字符串同样可以调用String对象的各种方法呢？**      
 
-**3****、String、StringBuffer、StringBuilder的联系与区别** 
+### **3****、String、StringBuffer、StringBuilder的联系与区别** 
         上面已经分析了String的本质了，下面简单说说StringBuffer和StringBuilder。
 
      StringBuffer和StringBuilder都继承了抽象类AbstractStringBuilder，这个抽象类和String一样也定义了char[] value和int count，但是与String类不同的是，它们没有final修饰符。因此得出结论：**String、StringBuffer和StringBuilder在本质上都是字符数组，不同的是，在进行连接操作时，String每次返回一个新的String实例，而StringBuffer和StringBuilder的append方法直接返回this，所以这就是为什么在进行大量字符串连接运算时，不推荐使用String，而推荐StringBuffer和StringBuilder。**那么，哪种情况使用StringBuffe？哪种情况使用StringBuilder呢？         
@@ -148,6 +148,10 @@ JAVA虚拟机有一条在堆中分配新对象的指令，却没有释放内存�
 ![](./img/090627_GrGk_1010775.png)
 
         上面第一张图是StringBuffer中append()方法的实现，第二张图为StringBuilder对append()的实现。区别应该一目了然，StringBuffer在方法前加了一个synchronized修饰，起到同步的作用，可以在多线程环境使用。为此付出的代价就是降低了执行效率。**因此，如果在多线程环境可以使用StringBuffer进行字符串连接操作，单线程环境使用StringBuilder，它的效率更高。**
+
+* 栈中用来存放一些原始数据类型的局部变量数据和对象的引用(String,数组.对象等等)但不存放对象内容
+* 堆中存放使用new关键字创建的对象.
+* 字符串是一个特殊包装类,其引用是存放在栈里的,而对象内容必须根据创建方式不同定(常量池和堆).有的是编译期就已经创建好，存放在字符串常 量池中，而有的是运行时才被创建.使用new关键字，存放在堆中
 
 ## **四、参考文献**
 
