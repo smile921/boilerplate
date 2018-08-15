@@ -1,0 +1,17 @@
+1、Subject、SecurityManager、Realms？
+Subject代表了当前用户的安全操作，SecurityManager则管理所有用户的安全操作。
+Realm充当了Shiro与应用安全数据间的“桥梁”或者“连接器”。也就是说，当切实与像用户帐户这类安全相关数据进行交互，执行认证(登录)和授权(访问控制)时，Shiro会从应用配置的Realm中查找很多内容。
+
+
+2、认证流程？
+a、应用程序构建了一个终端用户认证信息的AuthenticationToken实例后，调用Subject.login方法。
+
+b、Sbuject会委托应用程序设置的securityManager实例调用securityManager.login(token)方法。
+
+c、SecurityManager接受到token(令牌)信息后会委托内置的Authenticator的实例（通常都是ModularRealmAuthenticator类的实例）调用authenticator.authenticate(token).ModularRealmAuthenticator在认证过程中会对设置的一个或多个Realm实例进行适配，它实际上为Shiro提供了一个可拔插的认证机制。
+
+d、如果在应用程序中配置了多个Realm，ModularRealmAuthenticator会根据配置的AuthenticationStrategy(认证策略)来进行多Realm的认证过程。在Realm被调用后，AuthenticationStrategy将对每一个Realm的结果作出响应。
+
+注：如果应用程序中仅配置了一个Realm，Realm将被直接调用而无需再配置认证策略。
+
+e、Realm将调用getAuthenticationInfo(token);getAuthenticationInfo方法就是实际认证处理，我们通过覆盖Realm的doGetAuthenticationInfo方法来编写我们自定义的认证处理。

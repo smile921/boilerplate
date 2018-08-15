@@ -1,0 +1,23 @@
+1、为什么要使用数据连接池？
+频繁的建立、关闭数据库，会极大的降低系统的性 能，增大系统的开销，甚至成为系统的瓶颈。另外使用这种传统的模式，还必须管理数据库的每一个连接，以确保他们能正确关闭，如果出现程序异常而导致某些连 接未能关闭，将引起数据库系统中的内存泄露，最终不得不重启数据库。因此采用运行速度更快、数据库访问效率更高的数据库技术，以提高系统的运行效率将是至 关重要的。
+
+2、连接池原理？
+连接池技术的核心思想是：连接复用，通过建立一个数据库连接 池以及一套连接使用、分配、管理策略，使得该连接池中的连接可以得到高效、安全的复用，避免了数据库连接频繁建立、关闭的开销。
+
+3、druid的常用的配置项？
+druid.url=jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf8
+druid.driver-class=com.mysql.jdbc.Driver
+druid.username=root
+druid.password=123456
+#初始化时建立物理连接的个数。
+druid.initial-size=1
+#最小连接池数量
+druid.min-idle=1
+#最大连接池数量
+druid.max-active=20
+#申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+druid.test-on-borrow=true
+
+访问监控页面： http://ip:port/projectName/druid/index.html
+
+

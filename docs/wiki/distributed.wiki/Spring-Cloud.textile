@@ -1,0 +1,150 @@
+1、spring cloud的组件有哪些（通过对各组件的理解，这部分自然可以理解，玩积木一样集少成多）？
+Spring Cloud Config：配置管理开发工具包，可以让你把配置放到远程服务器，目前支持本地存储、Git以及Subversion。
+Spring Cloud Bus：事件、消息总线，用于在集群（例如，配置变化事件）中传播状态变化，可与Spring Cloud Config联合实现热部署。
+Spring Cloud Netflix：针对多种Netflix组件提供的开发工具包，其中包括Eureka、Hystrix、Zuul、Archaius等。
+Netflix Eureka：云端负载均衡，一个基于 REST 的服务，用于定位服务，以实现云端的负载均衡和中间层服务器的故障转移。
+Netflix Hystrix：容错管理工具，旨在通过控制服务和第三方库的节点,从而对延迟和故障提供更强大的容错能力。
+Netflix Zuul：边缘服务工具，是提供动态路由，监控，弹性，安全等的边缘服务。
+Netflix Archaius：配置管理API，包含一系列配置管理API，提供动态类型化属性、线程安全配置操作、轮询框架、回调机制等功能。
+Spring Cloud for Cloud Foundry：通过Oauth2协议绑定服务到CloudFoundry，CloudFoundry是VMware推出的开源PaaS云平台。
+Spring Cloud Sleuth：日志收集工具包，封装了Dapper,Zipkin和HTrace操作。
+Spring Cloud Data Flow：大数据操作工具，通过命令行方式操作数据流。
+Spring Cloud Security：安全工具包，为你的应用程序添加安全控制，主要是指OAuth2。
+Spring Cloud Consul：封装了Consul操作，consul是一个服务发现与配置工具，与Docker容器可以无缝集成。
+Spring Cloud Zookeeper：操作Zookeeper的工具包，用于使用zookeeper方式的服务注册和发现。
+Spring Cloud Stream：数据流操作开发包，封装了与Redis,Rabbit、Kafka等发送接收消息。
+Spring Cloud CLI：基于 Spring Boot CLI，可以让你以命令行方式快速建立云组件。
+
+2、spring boot的优缺点？
+Spring由于其繁琐的配置，一度被人成为“配置地狱”，各种XML、Annotation配置，让人眼花缭乱，而且如果出错了也很难找出原因。Spring Boot项目就是为了解决配置繁琐的问题，最大化的实现convention over configuration(约定大于配置)。
+Spring Boot的特性有以下几条：
+a:创建独立Spring应用程序
+b:嵌入式Tomcat，Jetty容器，无需部署WAR包
+c:简化Maven及Gradle配置
+d:尽可能的自动化配置Spring
+e:直接植入产品环境下的实用功能，比如度量指标、健康检查及扩展配置等
+f:无需代码生成及XML配置
+
+3、spring boot的缺点？
+基于druid的数据连接池实现读写分离没找到好的方法！！！
+
+4、简单介绍一下springcloud的服务治理（服务治理是什么，为什么需要）？
+
+服务治理是微服务架构中最为核心和基础的模块， 它主要实现各个微服务实例的自动化注册与发现。
+
+随着业务的发展， 系统功能越来越复杂， 相应的微服务应用也不断增加， 我们的静态配置就会变得越来越难以维护。 并且面对不断发展的业务， 我们的集群规模、 服务的位置、 服务的命名等都有可能发生变化， 如果还是通过手工维护的方式， 那么极易发生错误或是命名冲突等问题。
+
+围绕着服务注册与服务发现机制来完成对微服务应用实例的自动化管理。
+a:服务注册：在服务治理框架中，构建一个注册中心， 每个服务单元向注册中心登记自己提供的服务， 将主机与端口号、 版本号、 通信协议等附加信息告知注册中心， 注册中心按服务名分类组织服务清单。
+b:服务发现: 由于在服务治理框架下运作， 服务间的调用不再通过指定具体的实例地址来实现， 而是通过向服务名发起请求调用实现。 服务调用方在调用服务提供方接口的时候， 并不知道具体的服务实例位置。调用方需要向服务注册中心咨询服务， 并获取所有服务的实例清单， 以实现对具体服务实例的访问。
+
+5.服务治理在SpringCloud 中如何使用的？
+SpringCloud Eureka, 使用Netﬂix Eureka来实现服务注册与发现， 它既包含了服务端组件，也包含了客户端组件.
+Eureka服务端， 我们也称为服务注册中心。 
+Eureka客户端，主要处理服务的注册与发现。客户端服务通过注解和参数配置的方式。Eureka客户端向注册中心注册自身提供的服务并周期性地发送心跳来更新它的服务租约。
+
+6、如何搭建单机服务注册中心？
+a： pom中引入spring-cloud-starter-eureka-server
+b:  在Application中，通过 @EnableEurekaServer 注解启动 一个服务注册中心提供给其他应用进行对话。
+c: 在默认设置下， 该服务注册中心也会将自己作为客户端来尝试注册它自己， 所以我们需要禁用它的客户端注册行为， 只需在 application.properties 中配置：
+server.port=l111
+eureka.instance.hostname=localhost
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
+
+7、如何搭建注册服务提供者？
+a:  pom.xm中引入spring-cloud-starter-eureka
+b:  new一个@RestController
+c: 在Application中通过加上 @EnableDiscoveryClient 注解， 激活 Eureka 中的DiscoveryClient 实现（自动化配置， 创建 DiscoveryClient 接口针对 Eureka 客户端的 EurekaDiscoveryClient 实例）， 才能实现上述 Controller 中对服务信息的输出。
+d：在application.properties 中增加如下配置：
+spring.application.name=hello-service
+eureka.client.serviceUrl.defaul七Zone=http://localhost:llll/eureka/
+
+8、服务治理的高可用？
+在单节点的配置中， 我们设置过下面这两个参数， 让服务注册中心不注册自己：
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+EurekaServer的高可用实际上将自己作为服务向其他服务注册中心注册， 这样就可以形成一组互相注册的服务注册中心， 以实现服务清单的互相同步， 达到高可用的效果。
+
+a: 创建application-peerl.properties, 作为peerl服务中心的配置， 并将
+serviceUri指向peer2:
+spring.application.name=eureka-server
+server.port=llll
+eureka.instance.hostname=peerl
+eureka.client.serviceUrl.defaultZone=h七tp://peer2:1112/eureka/
+b: 创建application-peer2.properties, 作为peer2服务中心的配置， 并将
+serviceUr l指向peerl:
+spring.application.name=eureka-server
+server.port=lll2
+eureka.instance.hostname=peer2
+eureka.client.serviceUrl.defaultZone=http://peerl:llll/eureka/
+
+c:在etc/hosts文件中添加对peerl 和 peer2的转换， 让上面配置的host形式的
+serviceUr l能在本地正确访间到； Windows系统路径为C:\Windows\System32\
+drivers\etc\hosts。
+127.0.0.1 peerl
+127.0.0.1 peer2
+
+d:通过spring.profiles.active属性来分别启动peerl和peer2:
+java -jar eureka-server-1.0.0.jar --spring.profiles.active=peerl
+java -jar eureka-server-1.0.0.jar --spring.profiles.active=peer2
+
+e:在设置了多节点的服务注册中心之后， 服务提供方还需要做一些简单的配置才能将服务注册到Eureka Server 集群中。修改application.properties配置文件，
+spring.application.name=hello-service
+eureka.client.serviceUrl.defaultZone=http://peerl:llll/eureka/,http://peer2:lll
+2/eureka/
+
+9、如何实现服务发现与消费？
+
+10、服务治理机制？
+• "服务注册中心-1" 和 “ 服务注册中心-2", 它们互相注册组成了高可用集群。
+• "服务提供者 ” 启动了两个实例， 一个注册到 “ 服务注册中心-1" 上， 另外一个注册到 “服务注册中心-2" 上。
+• 还有两个 “ 服务消费者 “， 它们也都分别只指向了一个注册中心。
+
+服务续约：在注册完服务之后，服务提供者会维护 一个心跳用来持续告诉EurekaSe1-er: "我还活着 ”， 以防止Eureka Server 的 “ 剔除任务 ” 将该服务实例从服务列表中排除出去， 我们称该操作为服务续约(Renew)。
+eureka.instance.lease-renewal-interval-in-seconds 参数用于定义服务续约任务的调用间隔时间，默认为30秒。
+eureka.instance.lease-expira巨ondura已on-in-seconds参数用于定义服务失效的时间，默认为90秒。
+
+服务消费者：荻取服务是服务消费者的基础，所以必须确保eureka.client.fetch-registry=true参数没有被修改成false, 该值默认为true。若希望修改缓存清单的 更新时间，可以通过 eureka.client.registry-fetch-interval-seconds=30参数进行修改，
+该参数默认值为30, 单位为秒。
+
+服务调用:客户端可以根据自己的需要决定具体调用哪个实例，在Ribbon中会默认采用轮询的方式进行调用，从而实现客户端的负载均衡。
+
+服务注册中心: 失效剔除:可能由于内存溢出、 网络故障等原因使得服务不能正常工作， 而服务注册中心并未收到 “服务下线 ” 的请求。 为了从服务列表中将这些无法提供服务的实例剔除， Eureka Server在启动的时候会创建一个定时任务，默认每隔 一段时间（默认为60秒） 将当前清单中超时（默认为90秒）没有续约的服务剔除出去
+
+11、spring cloud客户端负载均衡？
+a: 服务提供者只需要启动多个服务实例并注册到一个注册中心或是多个相关联的服务注册中心。
+b: 服务消费者直接通过调用被 @LoadBalanced 注解修饰过的 RestTemplate 来实现面向服务的接口调用。
+
+12、谈谈RestTemplate？
+分GET请求、POST请求、PUT请求、DELETE请求。
+GET请求：getForEntity 函数、getForObject 函数。该方法可以理解为对 getForEntity 的进一步封装，它通过 HttpMessageConverterExtractor 对 HTTP 的请求响应体 body内容进行对象转换， 实现请求直接返回包装好的对象内容
+
+post： postForEntity 函数、postForObject 函数。 该方法也跟getForObject的类型类似， 它的作用是简化postForEntity的后续处理。 通过直接将请求响应的body内容包装成对象来返回使用。第三种： postForLocation函数。 该方法实现了以POST请求提交资源， 并返回新
+资源的URI.
+
+put:put函数也实现 了三种不同的重载方法：
+• put(String url, Object request, Object ... urlVariables)
+• put(S七ring url, Object request, Map urlVariables)
+• put(URI url, Object request)
+put函数为void类型，所以没有返回内容，也就没有其他函数定义的responseType参数， 除此之外的其他传入参数定义与用法与postForObject基本 一致。
+
+DELETE请求:在RestTemplate中，对DELETE请求可以通过delete方法进行调用实现，比如：
+RestTemplate restTemplate = new Res七Template();
+Long id= 10001L;
+restTemplate.delete("http://USER-SERVICE/user/{1)", id);
+delete函数也实现了三种不同的重载方法：
+• delete(String url, Object ... urlVariables)
+• delete(String url, Map urlVariables)
+• delete(URI url)
+由于我们在进行REST请求时， 通常都将DELETE请求的唯 一标识拼接在url中， 所以DELETE请求也不需要request的body信息，就如上面的三个函数实现 一 样.指定DELETE请求的位置， urlVariables绑定url中的参数即可。
+
+6、为什么要分布式服务跟踪，怎么实现的？
+
+7、为什么要使用api网关服务，如何实现的？
+
+8、springcloud的服务容错保护机制？
+
+
+

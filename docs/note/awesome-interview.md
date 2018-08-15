@@ -90,6 +90,7 @@
 
 ## Blog 精选
 
+* [spring boot 中文索引](http://springboot.fun/)
 * [javadoop.com](https://javadoop.com/)
 * [Java 进阶](https://crossoverjie.top/categories/Java-%E8%BF%9B%E9%98%B6/)
 * [aooy/blog](https://github.com/aooy/blog)

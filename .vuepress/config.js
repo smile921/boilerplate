@@ -11,6 +11,8 @@ module.exports = {
       ['/docs/note/java/JVM-Architecture', 'JVM Architecture'],
       ['/docs/note/java/message-queue', '消息队列'],
       ['/docs/note/java/ten-java-written', '10道java面试题'],
+      ['/docs/front/ember-goods', 'ember goods'],
+      ['/docs/front/vue-goods', 'vue goods'],
       '/docs/guide/development',
       '/docs/guide/architecture',
       '/docs/guide/tech',

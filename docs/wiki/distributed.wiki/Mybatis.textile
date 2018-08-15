@@ -1,0 +1,13 @@
+一、Example类是什么？
+Example类指定如何构建一个动态的where子句. 表中的每个non-BLOB列可以被包括在where子句中. 例子是展示此类用法的最好方式.
+
+Example类可以用来生成一个几乎无限的where子句.
+
+Example类包含一个内部静态类 Criteria 包含一个用 anded 组合在where子句中的条件列表. Example类包含一个 List 属性,所有内部类Criteria中的子句会用 ored组合在一起. 使用不同属性的 Criteria 类允许您生成无限类型的where子句
+
+二、Criteria？
+创建 Criteria 对象 可以使用Example类中的 createCriteria() 或者 or() . 如果 Criteria 对象是用 createCriteria() 创建的，它会自动为 List 属性添加一个 Criteria 对象 - 这使得它更容易写一个简单的where子句， 如果您不需要 or 或者其他几个子句组合的话. 用 or(Criteria criteria) 方法创建 Criteria 对象, 方法里的 criteria 对象会被添加进 Criteria 对象的列表中.
+
+三、如何生成Example类？
+mybatis的的配置文件可以使用mybatis-generator工具生成，它就可以帮我们生成example类。 
+根据 Mybatis 代码生成工具文档，需要一个配置文件，这里命名为:mbgConfiguration.xml放在 src 目录下。
