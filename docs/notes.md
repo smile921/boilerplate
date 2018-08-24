@@ -20,6 +20,8 @@
 
 [面试相关资料](note/awesome-interview.md)
 
+Java 知识地图
+![](./note/java/img/knowleagemap.jpg)
 ## Spring Transaction
 
 [Spring Transcation](note/java/spring-transaction.md)

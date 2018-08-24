@@ -15,7 +15,9 @@
     "test:ci": "yarn lint && yarn unit --coverage --ci && yarn e2e",
     "new": "hygen new",
     "docs": "vuepress dev",
-    "docs-build": "vuepress build"
+    "docs-build": "vuepress build",
+    "generate-full-site": "node generate-all.js",
+    "generate-full-site1": "webpack docs/_globals.js"
   },
   "gitHooks": {
     "pre-commit": "cross-env PRE_COMMIT=true lint-staged"
@@ -71,6 +73,7 @@
     "stylelint-scss": "3.1.x",
     "vue-jest": "2.6.x",
     "vue-template-compiler": "2.5.16",
-    "vuepress": "0.10.x"
+    "vuepress": "^0.14.2",
+    "webpack-cli": "^3.1.0"
   }
 }
