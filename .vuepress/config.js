@@ -17,7 +17,7 @@ module.exports = {
       ['/docs/note/java/note-java-top-problems', 'java 笔记'],
       ['/docs/note/Monad-you-need-know', 'Monad 笔记'],
       ['/docs/front/common-goods', '收集一些实用好东东'],
-
+      ['/docs/front/grid-layout', '网格布局'],
       '/docs/guide/development',
       '/docs/guide/architecture',
       '/docs/guide/tech',
