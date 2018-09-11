@@ -19,6 +19,8 @@ module.exports = {
       ['/docs/front/common-goods', '收集一些实用好东东'],
       ['/docs/front/grid-layout', '网格布局'],
       ['/docs/note/java/spring-boot-app-src', 'spring boot application 创建启动'],
+      ['/docs/note/java/vert.x-API-Gateway', 'VX-API-Gateway'],
+      ['/docs/note/java/vert.x', 'vert.x'],
       ['/docs/note/nothing-it-will-change','蔡志忠：努力是没有用的'],
       '/docs/guide/architecture',
     ],
