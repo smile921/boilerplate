@@ -46,5 +46,5 @@
 [使用Vulhub一键搭建漏洞测试靶场](https://vulhub.org)
 > Vulhub是一个面向大众的开源漏洞靶场，无需docker知识，简单执行两条命令即可编译、运行一个完整的漏洞靶场镜像。旨在让漏洞复现变得更加简单，让安全研究者更加专注于漏洞原理本身。
 
-## full
+## 更多集合
 > [full collections](https://lucid-pasteur-eae010.netlify.com/docs/notes.html)

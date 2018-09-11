@@ -76,3 +76,10 @@ Vert.x默认都是基于回调的API ——Nightmare!
 ## API-Gateway
 ![](./img/20180521184631921.png)
 ![](./img/20180521184709356.png)
+
+## reference 参考
+
+* [踏歌长行，梦想永在。sczyh30的 blog](https://www.sczyh30.com/)
+* [Vert.x Blueprint 系列教程(一) | 待办事项服务开发教程](https://segmentfault.com/a/1190000005733665)
+* [Vert.x Blueprint 系列教程(二) | 开发基于消息的应用 - Vert.x Kue 教程](https://segmentfault.com/a/1190000006070510)
+* [Vert.x Blueprint 系列教程(三) | Micro-Shop 微服务应用实战](https://segmentfault.com/a/1190000006803854)
