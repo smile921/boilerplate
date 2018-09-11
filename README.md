@@ -1,75 +1,42 @@
-# A Fork of Vue Enterprise Boilerplate
+# 学习笔记
 
-[![CircleCI](https://circleci.com/gh/chrisvfritz/vue-enterprise-boilerplate/tree/master.svg?style=svg)](https://circleci.com/gh/chrisvfritz/vue-enterprise-boilerplate/tree/master)
+## Couplet -- 诸葛亮
 
-> This is an ever-evolving, very opinionated architecture and dev environment for new Vue SPA projects using [Vue CLI 3](https://github.com/vuejs/vue-cli). Questions, feedback, and for now, even bikeshedding are welcome. 😄 If you'd like to increase the time I can spend on this project, as well as other Vue resources, **please consider becoming a [sponsor on Patreon](https://www.patreon.com/chrisvuefritz)**. :pray:
+*能攻心则反侧自消，从古知兵非好战。不审势即严宽皆误，后来治蜀要深思。*
+> 能采取攻心办法服人的，会使那些疑虑不安、怀有二心的对立面自然消除，自古以来深知用兵之道的人并不喜欢用战争解决问题；不能审时度势的人，其处理政事无论宽或严都要出差错，后代治理蜀地的人应该深思
 
-**:warning: This project uses Vue CLI 3, which is currently in beta so may not yet be appropriate for production projects.**
+## Poem
 
-## Features
+*蝴蝶过山门，轻舟过重山。一别两款，各生欢喜。解冤释结，更莫相憎。*
 
-- [**Thorough documentation**](#documentation): Written with the same care as Vue's core docs to quickly train new team members and consolidate knowledge.
-- [**Guaranteed consistency**](docs/guide/linting.md): Opinionated linting for Vue, JavaScript/JSON, SCSS, and Markdown, integrated into Visual Studio Code and run against staged files on pre-commit.
-- [**First-class tests**](docs/guide/tests.md): Practice test-driven development with both unit and end-to-end tests. Unit tests with Jest live as first-class citizens alongside your source files, while Cypress provides reliable end-to-end tests in an intuitive GUI for development.
-- [**Speedy development**](docs/guide/development.md): Between [configurable generators](docs/guide/development.md#generators), [handy aliases](docs/guide/development.md#aliases), and [global base components](docs/guide/development.md#base-components), your productivity will skyrocket.
+> 秋光更比春光好，蜂蝶纷纷不到门
 
-## Getting started
+> 轻舟已过万重山
 
-```bash
-# 1. Clone the repository.
-git clone https://github.com/chrisvfritz/vue-enterprise-boilerplate.git my-new-project
+> 这一次离别之后两个人都得到解脱，两个人都各自心生欢喜。
 
-# 2. Enter your newly-cloned folder
-cd my-new-project
+> 好多人好些事，搁在心里久了，就成了经年累月，成了你精心打扮过之后的样子，只会让你心里越来越重，可是在某一刻，当这个人再重新出现的时候，你会发现好像他真实的样子在你心里已经相去经年了，那大概就是人生释然的时刻吧
+## Java 资料收集
 
-# 3. Replace this README's CI badge with a note about when you started
-# and a link to a compare URL, so that you can always get an overview
-# of new features added to the boilerplate since you cloned.
-node _start.js
+* [面试相关资料](docs/note/awesome-interview.md)
 
-# 4. Delete the start script, as there can be only one beginning.
-rm _start.js
+* Spring Transaction
 
-# 5. Read the documentation linked below for "Setup and development".
-```
+[Spring Transcation](docs/note/java/spring-transaction.md)
 
-## Documentation
+* spring bean
+[Spring bean](docs/note/java/spring-bean.md)
 
-This project includes a `docs` folder with more details on:
+* Java 知识地图
+![](./docs/note/java/img/knowleagemap.jpg)
 
-1.  [Setup and development](docs/guide/development.md)
-1.  [Architecture](docs/guide/architecture.md)
-1.  [Languages and technologies](docs/guide/tech.md)
-1.  [Routing, layouts, and views](docs/guide/routing.md)
-1.  [State management](docs/guide/state.md)
-1.  [Tests and mocking the API](docs/guide/tests.md)
-1.  [Linting and formatting](docs/guide/linting.md)
-1.  [Editor integration](docs/guide/editors.md)
-1.  [Building and deploying to production](docs/guide/production.md)
-1.  [Troubleshooting](docs/guide/troubleshooting.md)
+## [我是怎么练英语的](https://dsdshcym.github.io/blog/2017/09/24/how-do-i-practice-my-english/)
+> 英语和编程语言的共性可能就在于两者都是实用性非常强的工具，都是用来交流用的，学习这样的工具时，最有效的方法可能就是「尽量多地去使用」了。对编程语言来说，相比英语来说少了听、说两个方面，只要多读、多写就可以了，而对于英语来说，则要从「听说读写」四个方面同时出发，多听、多说、多读、多写。
 
-## FAQ
 
-**Why would I use this boilerplate instead of generating a new project with [Vue CLI](https://github.com/vuejs/vue-cli) directly?**
+## 使用Vulhub一键搭建漏洞测试靶场 [vulhub](https://github.com/vulhub/vulhub)
+[使用Vulhub一键搭建漏洞测试靶场](https://vulhub.org)
+> Vulhub是一个面向大众的开源漏洞靶场，无需docker知识，简单执行两条命令即可编译、运行一个完整的漏洞靶场镜像。旨在让漏洞复现变得更加简单，让安全研究者更加专注于漏洞原理本身。
 
-Vue CLI aims for flexibility, making it as simple as possible for any team to set up a new project, no matter how big or small, whether it's an app or a library, or what languages and technologies are being used.
-
-This boilerplate makes more assumptions. It assumes you're building a large app, possibly developed by a large team. It also makes a lot of default choices for you, based on what tends to work well for large, enterprise projects. At the same time, it aims to educate and empower users to configure these defaults to ideally suit their specific app and team.
-
-**Why would I use this boilerplate instead of [Nuxt](https://nuxtjs.org/)?**
-
-Nuxt is like a really smart personal assistant, immediately making you more productive by taking care of many concerns _for you_. This boilerplate is more of a personal coach, aiming to educate and empower users to essentially configure their _own_ framework, ideally suited to their app and team.
-
-If what you're building is very well-defined, with requirements and technical challenges that won't drastically change over time, I'd probably recommend Nuxt instead. For the needs of common applications, it's more than up to the task. If you're a startup trying to prove product-market fit and your primary goal is initial development speed, that's also a point in Nuxt's favor.
-
-Here's when you might prefer building a project off the boilerplate instead:
-
-- The requirements for the product are very likely to change over time and you want to maintain maximum flexibility and control.
-- You'd like to focus on developing skills that will transfer across _any_ Vue project.
-- You're working in a large team, so need tooling to help everyone avoid common mistakes, write in a consistent style, and avoid bikeshedding in PRs.
-
-Finally, it's not an either-or situation. This boilerplate demonstrates many useful patterns for building robust applications that can also be applied to Nuxt apps. That means you could build a project with Nuxt, while still using this boilerplate as a study guide.
-
-**Can you build a Nuxt version of this boilerplate?**
-
-I might! I'll be focusing on this Vue CLI version for now, but once I've made most of the improvements on my roadmap and as time allows, I _would_ like to start work on a Nuxt version. The Nuxt team has even generously offered to help!
+## full
+> [full collections](https://lucid-pasteur-eae010.netlify.com/docs/notes.html)

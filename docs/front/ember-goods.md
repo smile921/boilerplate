@@ -88,3 +88,7 @@ for detailed examples and documentation of the individual decorators.
 5. 所谓的 routable component：https://wongpeiyi.github.io/ember-component-routes/
 
 等等，上述这些都将会是未来框架的一部分，只不过 ember 本身就要变成模块化的（会使用新的 packger 进行打包，底层使用 rollup），所以它们以后并不一定会变成一个大的整体的东西，也许就是稳定之后重新命名，然后作为单独的模块供用户使用。
+
+
+## ember-learn/ember-cli-addon-docs
+[Easy documentation for Ember addons.](https://github.com/ember-learn/ember-cli-addon-docs)

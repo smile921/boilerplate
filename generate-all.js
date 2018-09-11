@@ -1,5 +1,6 @@
 var path = require('path')
 var fs = require("fs")
+var crypto = require('crypto');
 
 var files = [],
   dirs = [];
@@ -22,7 +23,7 @@ setTimeout(function () {
     }
     console.log("The file was saved!");
   });
-}, 10000)
+}, 30000)
 //for()
 
 function readDir(path, base) {
@@ -41,7 +42,14 @@ function readDir(path, base) {
         } else {
           //console.log('file:' + base + '/' + ele.substring(0, ele.length))
           if (ele.endsWith('.md')) {
-            files.push(base + '/' + ele.substring(0, ele.length - 3))
+            if (/.*[\u4e00-\u9fa5]+.*$/.test(ele)) {
+              console.log('got one:   ' + ele)
+              var kv = '[\'' + base + '/' + genMd5Hash(ele.substring(0, ele.length - 3)) + '\',\'' + ele.substring(0, ele.length - 3) + '\']'
+              files.push(kv);
+              //copyFile(ele);
+            } else {
+              files.push(base + '/' + ele.substring(0, ele.length - 3))
+            }
           }
         }
       }) // end stat func
@@ -52,3 +60,10 @@ function readDir(path, base) {
 
   console.log(files.length);
 }
+
+function genMd5Hash(str) {
+  var md5sum = crypto.createHash('md5');
+  md5sum.update(str);
+  str = md5sum.digest('hex');
+  return str;
+};

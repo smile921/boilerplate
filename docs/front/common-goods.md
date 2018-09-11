@@ -129,3 +129,25 @@ Algo VPN is a set of Ansible scripts that simplify the setup of a personal IPSEC
 ## [flex box defense](http://www.flexboxdefense.com/)
 一个保卫flex 盒子的小游戏，帮你熟悉flex 布局的各种属性
 ## [CSS 网格布局学习指南](https://blog.jirengu.com/?p=990)
+
+## [配色选择](https://colorhunt.co/popular)
+
+## books
+* Type Rules: The Designer's Guide to Professional Typography Fourth Edition
+* About Face: The Essentials of Interaction Design Fourth Edition
+* Understanding Color: An Introduction for Designers Fifth Edition
+
+## yahoo/elide
+Elide is a Java library that lets you stand up a GraphQL/JSON-API web service with minimal effort http://elide.io/
+Elide是一个互联网和移动端应用数据API搭建平台，只需要一个简单的JPA注释模型 就能帮您轻松搭建GraphQL和JSON API web 服务的。
+
+## enable Windows Subsystem Linux
+```powershell
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+```
+download the app dirtro
+```powershell
+Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1604 -OutFile Ubuntu.appx -UseBasicParsing
+```
+
+## WCPP
