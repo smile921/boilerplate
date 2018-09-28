@@ -66,3 +66,23 @@ ZGC 并没有完全去掉GC的卡顿，但是GC停顿时间非常短，只有几
 
 [听R大论JDK11的ZGC](https://juejin.im/entry/5b86a276f265da435c4402d4)
 [A FIRST LOOK INTO ZGC](https://dinfuehr.github.io/blog/a-first-look-into-zgc/)
+
+
+
+## [Quasar](http://docs.paralleluniverse.co/quasar/)
+[parallel universe](http://www.paralleluniverse.co/)
+Quasar is a library that provides high-performance lightweight threads, Go-like channels, Erlang-like actors, and other asynchronous programming tools for Java and Kotlin.
+
+A good introduction to Quasar can be found in the blog post Erlang (and Go) in Clojure (and Java), Lightweight Threads, Channels and Actors for the JVM.
+
+## Comsat
+Comsat integrates standard Java web-related APIs with Quasar fibers and actors. It provides fiber-aware implementations of servlets, JAX-RS REST services, HTTP clients and JDBC. With Comsat, you can write web applications that are scalable and performant while, at the same time, are simple to code and maintain. You will enjoy the scalability of asynchronous services with no need to change your simple sequential code.
+
+## Quasar
+Quasar is an open source JVM library that greatly simplifies the creation of highly concurrent software. Quasar adds true lightweight threads — fibers — to the JVM. Those fibers are just like regular threads, only they add very little scheduling overhead, and allow you to run hundreds-of-thousands or even millions of lightweight threads on a single JVM instance. On top of those fibers, Quasar provides Go-like channels, and Erlang-like actors, complete with supervisor hierarchies, selective receive and more.
+
+## SpaceBase
+SpaceBase is an in-memory spatial and geo-spatial database. It allows updating and querying millions of entities in real-time. Speciﬁcally designed for applications that require performing spatial operations with very low latencies or at very high rates.
+
+## Galaxy
+Galaxy is distributed in-memory data grid that horizontally scales Quasar’s actors across a cluster. Galaxy uses cache-coherence protocols across the network, and ensures that virtually all data queries and transactions are served with no need for IO.
