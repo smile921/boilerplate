@@ -1,8 +1,6 @@
 ###
-
-https://marketplace.visualstudio.com/search?term=rest%20client&target=VS&category=All%20categories&vsVersion=vs15&sortBy=Relevance
+GET https://marketplace.visualstudio.com/search?term=rest%20client&target=VS&category=All%20categories&vsVersion=vs15&sortBy=Relevance
 
 
 ###
-
 GET https://res.wx.qq.com/voice/getvoice?mediaid=MzI4NDU3NzIyNF8yMjQ3NDg2Mjgy
