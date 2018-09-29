@@ -194,9 +194,11 @@ $(document).ready(function() {
 		else
 			$("#docs-sidemenu").addClass('scrolling-big').removeClass('stay');
 	}
+	//not use
 	function stopScrolling(){
 		$("#docs-sidemenu").removeClass('scrolling').removeClass('scrolling-big');
 	}
+	//not use
 	function stickBottom(){
 		$("#docs-sidemenu").removeClass('scrolling').removeClass('scrolling-big').addClass('stay');
 	}
