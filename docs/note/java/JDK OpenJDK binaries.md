@@ -25,3 +25,24 @@ https://www.azul.com/products/zulu-and-zulu-enterprise/download-openjdk-10-for-w
 ## ref
 * [	Hacker News OpenJDK now available for Windows ](https://news.ycombinator.com/item?id=13235849)
 * [Where can I get OpenJDK binaries and archives?](https://qiita.com/ykubota/items/379a6aefac745f902881)
+
+
+## GC
+
+> 调节GC配置主要是调节 应用的最大停顿时间和应用的吞吐量。
+
+* Garbage-First (G1) collector
+* The maximum number of GC threads is limited by heap size and available CPU resources
+* Initial heap size of 1/64 of physical memory
+* Maximum heap size of 1/4 of physical memory
+* Tiered compiler, using both C1 and C2
+
+JEP 318: Epsilon: A No-Op Garbage Collector
+JDK上对这个特性的描述是：开发一个处理内存分配但不实现任何实际内存回收机制的GC，一旦可用堆内存用完，JVM就会退出。
+
+### 到JDK10为止，Java启动器能以三种方式运行
+* 启动一个class文件
+* 启动一个JAR中的main方法类
+* 启动一个模块中的main方法类
+
+* JDK11再加一个，即第四种方式：启动一个源文件申明的类。
