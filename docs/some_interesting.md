@@ -1,8 +1,126 @@
-# Lilypond 一个开源的乐谱生成软件。
+## [asciinema [as-kee-nuh-muh] ](https://asciinema.org/)
+
+> Record and share your terminal sessions, the right way.
+
+asciinema [as-kee-nuh-muh] is a free and open source solution for recording terminal sessions and sharing them on the web
+
+## [FZF is a general-purpose command-line fuzzy finder.](https://github.com/junegunn/fzf)
+
+It's an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.
+
+Pros
+----
+
+- Portable, no dependencies
+- Blazingly fast
+- The most comprehensive feature set
+- Flexible layout
+- Batteries included
+    - Vim/Neovim plugin, key bindings and fuzzy auto-completion
+
+Usage
+-----
+
+fzf will launch interactive finder, read the list from STDIN, and write the
+selected item to STDOUT.
+
+```sh
+find * -type f | fzf > selected
+```
+
+Without STDIN pipe, fzf will use find command to fetch the list of
+files excluding hidden ones. (You can override the default command with
+`FZF_DEFAULT_COMMAND`)
+
+```sh
+vim $(fzf)
+```
+
+#### Using the finder
+
+- `CTRL-J` / `CTRL-K` (or `CTRL-N` / `CTRL-P`) to move cursor up and down
+- `Enter` key to select the item, `CTRL-C` / `CTRL-G` / `ESC` to exit
+- On multi-select mode (`-m`), `TAB` and `Shift-TAB` to mark multiple items
+- Emacs style key bindings
+- Mouse: scroll, click, double-click; shift-click and shift-scroll on
+  multi-select mode
+
+#### Layout
+
+fzf by default starts in fullscreen mode, but you can make it start below the
+cursor with `--height` option.
+
+```sh
+vim $(fzf --height 40%)
+```
+
+Also check out `--reverse` and `--layout` options if you prefer
+"top-down" layout instead of the default "bottom-up" layout.
+
+```sh
+vim $(fzf --height 40% --reverse)
+```
+
+You can add these options to `$FZF_DEFAULT_OPTS` so that they're applied by
+default. For example,
+
+```sh
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+```
+
+#### Search syntax
+
+Unless otherwise specified, fzf starts in "extended-search mode" where you can
+type in multiple search terms delimited by spaces. e.g. `^music .mp3$ sbtrkt
+!fire`
+
+| Token     | Match type                 | Description                          |
+| --------- | -------------------------- | ------------------------------------ |
+| `sbtrkt`  | fuzzy-match                | Items that match `sbtrkt`            |
+| `'wild`   | exact-match (quoted)       | Items that include `wild`            |
+| `^music`  | prefix-exact-match         | Items that start with `music`        |
+| `.mp3$`   | suffix-exact-match         | Items that end with `.mp3`           |
+| `!fire`   | inverse-exact-match        | Items that do not include `fire`     |
+| `!^music` | inverse-prefix-exact-match | Items that do not start with `music` |
+| `!.mp3$`  | inverse-suffix-exact-match | Items that do not end with `.mp3`    |
+
+If you don't prefer fuzzy matching and do not wish to "quote" every word,
+start fzf with `-e` or `--exact` option. Note that when  `--exact` is set,
+`'`-prefix "unquotes" the term.
+
+A single bar character term acts as an OR operator. For example, the following
+query matches entries that start with `core` and end with either `go`, `rb`,
+or `py`.
+
+```
+^core go$ | rb$ | py$
+```
+
+#### Environment variables
+
+- `FZF_DEFAULT_COMMAND`
+    - Default command to use when input is tty
+    - e.g. `export FZF_DEFAULT_COMMAND='fd --type f'`
+- `FZF_DEFAULT_OPTS`
+    - Default options
+    - e.g. `export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"`
+
+#### Options
+
+See the man page (`man fzf`) for the full list of options.
+
+Examples
+--------
+
+Many useful examples can be found on [the wiki
+page](https://github.com/junegunn/fzf/wiki/examples). Feel free to add your
+own as well.
+
+## Lilypond 一个开源的乐谱生成软件。
 [hacklily 在线写谱并演奏](https://www.hacklily.org) 可以导出乐谱也可以直接生产文件并保持到GitHub。
 A web-based sheet music editor and publishing platform. https://www.hacklily.org
 
-# 数据可视化
+## 数据可视化
 
 [pinterest](https://www.pinterest.com/)
 [visualcapitalist](http://www.visualcapitalist.com/)
@@ -17,7 +135,9 @@ Founded by David McCandless, author of two bestselling infographics books, Infor
 
 [http://sarapiccolomini.com](http://sarapiccolomini.com)
 
-# 什么是Alpha，什么是Beta?
+[The Visual Miscellaneum](#)
+The Visual Miscellaneum is a unique, groundbreaking look at the modern information age, helping readers make sense of the countless statistics and random facts that constantly bombard us. Using cutting edge graphs, charts, and illustrations, David McCandless creatively visualizes the world's surprising relationships and compelling data, covering everything from the most pleasu...
+## 什么是Alpha，什么是Beta?
 Alpha:投资组合的超额收益，表现管理者的能力；Beta:市场风险，最初主要指股票市场的系统性风险或收益。换句话说，跑赢大盘的就叫Alpha，跟着大盘起伏就叫Beta。
 
 
