@@ -18,6 +18,7 @@ module.exports = {
       ['/docs/note/Monad-you-need-know', 'Monad 笔记'],
       ['/docs/front/common-goods', '收集一些实用好东东'],
       ['/docs/front/grid-layout', '网格布局'],
+      ['/docs/front/sourcemap-seven-type','7种 sourcemap 选项详解'],
       ['/docs/note/java/JAVA-JIT-performancing','JIT 代码分析与优化工具'],
       ['/docs/note/java/spring-boot-app-src', 'spring boot application 创建启动'],
       ['/docs/note/java/vert.x', 'vert.x'],
