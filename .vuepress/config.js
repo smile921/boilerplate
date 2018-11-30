@@ -30,6 +30,7 @@ module.exports = {
       ['/docs/note/Here are the 5 free platforms for notebook','五种免费的 Jupyter Notebook 平台'],
       ['/docs/note/nothing-it-will-change','蔡志忠：努力是没有用的'],
       ['/docs/some_interesting','一些有趣的东西'],
+      ['/docs/note/OpenAPI-3.0','Open API 3.0 '],
       '/docs/guide/architecture',
     ],
   },

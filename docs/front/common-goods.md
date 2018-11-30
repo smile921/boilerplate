@@ -208,3 +208,11 @@ opValue(操作值)， 对应具体操作的参数值，如：
 ```
 
 pattern 和 operatorURI 在多数情况下位置可以调换，且支持组合模式
+
+## [各种折纸飞机](https://www.foldnfly.com/index.html)
+## [ScriptOJ](http://scriptoj.mangojuice.top/)
+ScriptOJ 是首个 Web 前端开发评测系统
+
+从大量实战代码、面试题目中总结出精华题库和相应的测试
+
+帮助你提升、锻炼 Web 开发技能，简单直接地获取第一手 Web 前端实战经验。
