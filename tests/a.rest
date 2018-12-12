@@ -1,0 +1,15 @@
+
+
+###
+
+POST http://10.88.2.22:98/company.do?saveFinace&companyId=eb631cd27d2b4ba39d2d3198e7782648 HTTP/1.1
+Cookie: JEECGINDEXSTYLE=hplus; ZINDEXNUMBER=1990; JSESSIONID=99EE2A2EFDD7BDCC31586EB554487FA3
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36
+X-Requested-With: XMLHttpRequest
+content-type: application/json
+
+{
+  "companyId": "eb631cd27d2b4ba39d2d3198e7782648",
+  "fileNme": "USMicro.yaml",
+  "filePath": "file/288/filename/20181212144232510.yaml"
+}

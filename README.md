@@ -24,6 +24,17 @@
 > 少年人要心忙，忙则慑浮气。老年人要心闲，闲则乐余年。
 >    -- 陈继儒 《小窗幽记》
 
+## 岳王坟
+
+> **岂恨藏弓早，终知借剑难**
+
+> 国耻犹未雪，身危亦自甘。
+> 九原人不返，万壑气长寒。
+> 岂恨藏弓早，终知借剑难。
+> 吾生非壮士，于此发冲冠。
+
+## [The Architecture of Open Source Applications](http://www.aosabook.org/en/index.html)
+有空好好拜读一下
 ## Java 资料收集
 
 * [面试相关资料](docs/note/awesome-interview.md)

@@ -216,3 +216,45 @@ ScriptOJ 是首个 Web 前端开发评测系统
 从大量实战代码、面试题目中总结出精华题库和相应的测试
 
 帮助你提升、锻炼 Web 开发技能，简单直接地获取第一手 Web 前端实战经验。
+
+
+## [tailwind css](https://tailwindcss.com/)
+
+一个值得去了解的工具型CSS 框架，不提供基础的UI组件，但是提供很多CSS 工具类
+[使用 tailwind 实现的网站](https://builtwithtailwind.com/)
+
+
+[A Hands-On Guide to Mobile-First Responsive Design](https://www.uxpin.com/studio/blog/a-hands-on-guide-to-mobile-first-design/)
+以最小屏幕开始设计，再逐步到大的过程。这是实现响应式和自适应的一个相当不错的策略。
+
+### The Mobile-First Design Process
+* preset layout 选中一个mobile 屏幕预设
+* Content Inventory 列出内容清单
+* Visual Hierarchy 对内容清单排序，确定内容的展示方式
+* Design with the smallest breakpoints and then scale up 设计mobile的线框图，再扩展到到屏幕上去，直到屏幕的空白太多
+* Enlarge touch targets 扩大触摸点 推荐44px x 44px 为一个触摸点，给出连接足够的空白和大一点的按钮
+* Don’t count on hovers 移动端还没有hover的手势控制实现
+* Think "app"  off-canvas navigation 交互同时不刷新页面
+* Avoid large graphics 移动端大图片不适合
+* Test it in a real device
+
+
+## [crisp chat](https://crisp.chat/en/)
+Give your customer experience a human touch
+做客服集成的，一个不错的工具提供者，可以提供免费的2个坐席介入。
+
+## LLVM (Low Level Virtual Machine)
+LLVM（Low Level Virtual Machine）是一组库，包含了编译器的building blocks。主要的模块包括：
+
+* AST -> IR (Intermediate Representation 中间语言) generation
+* IR优化
+* IR -> machine code generation
+
+LLVM的IR和Java的byte code很类似。IR一种二进制语言，LLVM把IR当作其内部模块的输入和输出LLVM也提供更高级的code object（instruction object，function object），使得可以更方便的对IR进行编程。包括对函数进行inline，移除指令，用常量替代一个计算，等等。Impala用到了LLVM中的IR优化，以及IR生成机器码。
+
+除了LLVM，还有其他的生成代码的方式，但LLVM的效果更好
+
+### 经典的编译流程
+编译器通过词法分析 -> 语法分析 -> 语义分析 -> 中间代码优化 -> 目标代码生成，最终生成汇编指令，再由汇编语言根据不同的指令集生成对应的可执行程序
+
+[ref The Architecture of Open Source Applications: LLVM ](http://www.aosabook.org/en/llvm.html)
