@@ -1,5 +1,8 @@
 # common goods
 
+## [nginxconfig](https://nginxconfig.io)
+提供一个可视化的界面选中一些配置项，自动生成nginx 配置网站
+
 ## lottie airbnb/lottie-web
 Easily add high-quality animation to any native app.
 http://airbnb.io/lottie/
@@ -258,3 +261,7 @@ LLVM的IR和Java的byte code很类似。IR一种二进制语言，LLVM把IR当�
 编译器通过词法分析 -> 语法分析 -> 语义分析 -> 中间代码优化 -> 目标代码生成，最终生成汇编指令，再由汇编语言根据不同的指令集生成对应的可执行程序
 
 [ref The Architecture of Open Source Applications: LLVM ](http://www.aosabook.org/en/llvm.html)
+
+
+## [FPGA 入门网站](https://www.fpga4fun.com)
+FPGA 入门，感兴趣的可以去看看。

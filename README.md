@@ -1,5 +1,6 @@
 # 学习笔记
 
+> if you think that the life of a developer is a bed of roses you’d better read on.
 ## Couplet -- 诸葛亮
 
 *能攻心则反侧自消，从古知兵非好战。不审势即严宽皆误，后来治蜀要深思。*
