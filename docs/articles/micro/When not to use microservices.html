@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://www.feval.fr/posts/microservices/ -->
+<html lang="en" data-ember-extension="1"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>When not to use microservices</title>
+  <meta name="description" content="In the past 4 years, most of the teams I’ve been working with have expressed some form of interest in refactoring to microservices. This topology seems to ha...">
+ 
+  <link rel="stylesheet" href="./assets/font-awesome.min.css">
+  <link rel="stylesheet" href="./assets/main.css">
+  <link rel="canonical" href="https://www.feval.fr/posts/microservices/">
+  <link rel="alternate" type="application/rss+xml" title="Charles Féval" href="https://www.feval.fr/feed.xml">
+  
+    
+</head>
+
+
+  <body style="">
+
+  <div class="wrapper">
+    <header class="site-header" role="banner">
+
+  <a class="site-title" href="https://www.feval.fr/">Charles Féval</a>
+  <p class="site-description">Cloud Solution Architect at Microsoft. Talking about <a href="https://www.feval.fr/categories/Code/">software</a> and <a href="https://www.feval.fr/categories/Process/">process</a>.
+</p>
+  <p class="site-search-container">
+    <i class="fa fa-search site-searchbutton" id="search-button" onclick="showSearch()"></i>
+    <input id="search" class="site-searchbar" placeholder="search" onkeydown="return manageSearchButton(event, this.value)">
+  </p>
+
+</header>
+
+  </div>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">When not to use microservices</h1>
+    <p class="post-meta">
+      <time datetime="2018-11-14T00:00:00+00:00" itemprop="datePublished">2018-Nov-14</time>
+           | <a href="https://www.feval.fr/categories/Code">Code</a> | <a href="https://www.feval.fr/categories/Architecture">Architecture</a> | <a href="https://www.feval.fr/categories/Engineering">Engineering</a> | <a href="https://www.feval.fr/categories/Microservices">Microservices</a>
+      
+    </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In the past 4 years, most of the teams I’ve
+been working with have expressed some form of interest in refactoring to microservices.
+This topology seems to have become the <em>de facto</em> standard. And it’s
+understandable, given the promises that come with: resiliency, HA,
+low coupling, agility. They’re <a href="https://en.wikipedia.org/wiki/Appeal_to_novelty">appealing</a>
+because they fix issues that everyone faced with monoliths.</p>
+
+<p>As of late, a few reservations and precautions seem to have
+gained attention regarding them<sup id="fnref:11"><a href="https://www.feval.fr/posts/microservices/#fn:11" class="footnote">1</a></sup>.</p>
+
+<p>But aren’t microservices awesome? Shouldn’t
+everyone just accept and adopt them now?</p>
+
+<p>In this post I want to discuss the application of microservices, 
+what are some of their downsides, and situations
+in which case their use should be re-considered very carefully.</p>
+
+<h1 id="what-are-microservices">What are microservices</h1>
+
+<p>There are plenty of definitions to microservices. Unfortunately the
+origin to the term itself is not 100% clear, which means that anyone’s
+is as good as another’s<sup id="fnref:10"><a href="https://www.feval.fr/posts/microservices/#fn:10" class="footnote">2</a></sup>.</p>
+
+<p>Overall there still seems to be consensus at an industry level on
+a base set of features that characterize microservices, which are summarized as the following:</p>
+
+<blockquote>
+  <p>Microservices are a pattern that applies to component 
+design
+(how things are grouped together) and deployment 
+architecture
+(how things are deployed and communicate).</p>
+
+  <p>Microservices are applicable to distributed applications
+of a “certain functional complexity”.</p>
+
+  <p>They prescribe
+that services be kept small, grouped by function, implement
+separation of concerns, stay autonomous and decoupled from 
+one another, can be deployed and versioned and scaled 
+independently,
+communicate through a mix of lightweight APIs and 
+asynchronous channels,
+have their own state, and that this state be accessed only
+through the service.</p>
+</blockquote>
+
+<p>You typical implementation of the pattern looks like so:</p>
+
+<p><img src="./assets/typical-deployment.png" alt=""></p>
+
+<ul>
+  <li>A set of services with their front-end (composed of an API, and a UI
+  component - or not), a domain layer implementing the logic for the service’s
+  domain, and its own data store.</li>
+  <li>Front-end composites, that compose all front-end components (UI or API) into
+  consistent front-ends (UI composite or API gateway)</li>
+  <li>An event bus, serving as backbone for asynchronous communication.</li>
+</ul>
+
+<p>The main issue is that the consensus on applicable use-cases the pattern is 
+fairly wide. Which is 
+why I want to take the
+opposite approach and try to identify <strong>when microservices
+might not be the best option</strong> available.</p>
+
+<h1 id="the-challenges-of-microservices">The challenges of microservices</h1>
+
+<blockquote>
+  <p>Programmers know the benefits of everything and the trade-offs of nothing.</p>
+
+  <p>~ Rich Hickey (Designer of Clojure)</p>
+</blockquote>
+
+<p>There are trade-offs to implementing microservices. Since the point
+of this article is not to bash them, I will try to be concise:</p>
+
+<ol>
+  <li>
+    <p>Microservices are <strong>hard to design</strong> correctly. There are entire 
+<a href="https://www.safaribooksonline.com/library/view/microservices-antipatterns-and/9781492042716/">books</a> written on
+ their pitfalls. It takes (a lot of)
+ iterations to land on a satisfying domain design and boundaries. Several
+ fundamental and structuring  questions don’t have straight forward answers 
+ and will require tweaking and iterations, such as:
+ how to manage <a href="https://auth0.com/blog/introduction-to-microservices-part-4-dependencies/">cross cutting concerns</a> (share, but couple, don’t share, but
+ duplicate), how to share data and what level to replication to have, how to
+ manage reporting, whether to include UI components in the services, etc.</p>
+  </li>
+  <li>
+    <p>They come with a host of <strong>technical complexities</strong>, which have been
+ documented in great details. The most quoted is probably
+ <a href="http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html">“microservices - not a free lunch”</a>. Some of the challenges includes:</p>
+
+    <ul>
+      <li>
+        <p>they <strong>multiply the number of APIs</strong>
+  <img src="./assets/APIs.png" alt="">
+  This makes changes harder
+  and introduce versioning complexities, and decrease your ability to change
+  the functional decomposition of your services<sup id="fnref:12"><a href="https://www.feval.fr/posts/microservices/#fn:12" class="footnote">3</a></sup>.</p>
+      </li>
+      <li>
+        <p>they <a href="https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/architect-microservice-container-applications/communication-in-microservice-architecture#asynchronous-microservice-integration-enforces-microservices-autonomy">introduce <strong>network latency</strong></a> and introduce a trade between
+  scalability and increased response time when composing 
+  services<sup id="fnref:13"><a href="https://www.feval.fr/posts/microservices/#fn:13" class="footnote">4</a></sup>.</p>
+      </li>
+      <li>
+        <p><a href="https://blog.christianposta.com/microservices/the-hardest-part-about-microservices-data/"><strong>transactions across several services are complex</strong></a> 
+  because of the CAP theorem<sup id="fnref:15"><a href="https://www.feval.fr/posts/microservices/#fn:15" class="footnote">5</a></sup>. As opposed to monoliths with a
+  single database, they are usually not handled by the 
+  infrastructure.</p>
+      </li>
+      <li>
+        <p><strong>debugging distributed systems is complex</strong> (see 
+  “microservices - not a free lunch”). Asynchronous systems, inter-service locking
+  and race conditions are hard to troubleshoot<sup id="fnref:16"><a href="https://www.feval.fr/posts/microservices/#fn:16" class="footnote">6</a></sup>.</p>
+      </li>
+    </ul>
+
+    <p>These complexities are not insurmountable, but they are
+ more technical details to consider rather than focusing on the
+ business functions that bring value.</p>
+  </li>
+  <li>
+    <p>They require an <a href="https://martinfowler.com/articles/microservices.html#OrganizedAroundBusinessCapabilities"><strong>organization shift</strong></a> 
+ to autonomous, cross-functional teams. This
+ is a crucial step, as per <a href="https://en.wikipedia.org/wiki/Conway&#39;s_law">Conway’s law</a>.
+ That means front end and back end devs, data platform engineers, QAs, 
+ product managers, and ops mixed in a single team.</p>
+
+    <p><img src="./assets/organization.png" alt=""></p>
+
+    <p>This works smoothly because most of the dependencies are internal
+ to each team, and since priorities are the same, they tend to 
+ resolve quickly.</p>
+  </li>
+  <li>
+    <p>They require <a href="https://martinfowler.com/bliki/MicroservicePrerequisites.html">a change of process and practices</a>. 
+ From a few large releases once in a while, to a lot of small releases often. From ticket-based provisioning, to self-service
+ coded infrastructure.</p>
+
+    <p><img src="./assets/organization-process-architecture.png" alt="organization &lt;-&gt; process &lt;-&gt; architecture" width="450px"></p>
+
+    <p>The <strong>success of a microservice architecture depends on the 
+ capacity of organization and process to change</strong>, and those 
+ are the hardest things to reform.</p>
+  </li>
+  <li>
+    <p>The technical challenges discussed above mean that the <strong>team’s skillset
+ needs to be extended</strong>, for every specialty. They will need to understand
+ distributed systems, devops, infra as code, different types of databases,
+ composing and componentizing front-ends, unit-testing everything, releasing
+ to production without manual intervention, iterating and failing, planning
+ very small releases, testing in prod, managing several versions, and etc.</p>
+  </li>
+</ol>
+
+<h1 id="when-microservices-should-seriously-be-questioned">When microservices should seriously be questioned</h1>
+
+<ol>
+  <li>
+    <p>The <strong>application is too small</strong> to justify micro-services<sup id="fnref:1"><a href="https://www.feval.fr/posts/microservices/#fn:1" class="footnote">7</a></sup>. And sure, it
+ might grow in the future, and have entire domains added to it ; in which case, 
+ switch to microservices when they actually approaching the threshold of RoI.
+ A similar reasoning can be applied to small teams.</p>
+
+    <p><img src="./assets/costs.png" alt="" width="450px"></p>
+  </li>
+  <li>
+    <p>The <strong>domain is unclear or uncertain</strong>, which makes the domain model uncertain.
+ This happens when the product is described as “a portal”, when your start a
+ start-up, when what is initially CRM might actually also manage orders, and 
+ maybe delivery, we’ll see, let’s be open.</p>
+
+    <p>Boundaries will move, interfaces will change, models will split, aggregates
+ will consolidate. In this case, the worst idea is to create stickiness to
+ the application architecture by having hard-to-change contracts and hard-to-change
+ clients. <a href="http://www.extremeprogramming.org/rules/refactor.html">You need to refactor mercilessly</a>,
+ it can’t be done if the premises are to change the law, renegociate contracts
+ and fear that hidden dependencies will blow somewhere. A monolith, in this
+ situation, is much more flexible. You can be amazed by the refactoring
+ features of your IDE, and hide behind the safety of your suite of unit tests,
+ while transforming the CRM domain into a logistics solution alone in the night.</p>
+  </li>
+  <li>
+    <p>The <strong>organization can’t change</strong> to adapt to the microservice way. It still
+ contains a data group, a front-end group, a back-end group, and so on. Conway’s
+ law is propitious to have the services composed as a 
+ <a href="https://www.thoughtworks.com/radar/techniques/layered-microservices-architecture">layered microservice architecture</a>.
+ Compare the diagram below with the one above:</p>
+
+    <p><img src="./assets/organization-by-tech.png" alt=""></p>
+
+    <p>And since different teams have different priorities, those cross-teams dependencies
+ are interlocking, creating delays and conflicts.</p>
+  </li>
+  <li>
+    <p>Team <strong>lacks experience and understanding of microservice</strong> concepts, DDD, or conceptual design.
+ While this is not necessarily a deterrent altogether (one must start somewhere
+ to get somewhere), one should follow careful documentation<sup id="fnref:2"><a href="https://www.feval.fr/posts/microservices/#fn:2" class="footnote">8</a></sup> and seek advice.
+ The consequences of an ill designed architecture is the creation of
+ a tightly coupled distributed monolith and everything that comes with
+ it: network chattiness and delays, complexity, hidden dependencies<sup id="fnref:7"><a href="https://www.feval.fr/posts/microservices/#fn:7" class="footnote">9</a></sup>,
+ coupling at deploy time<sup id="fnref:6"><a href="https://www.feval.fr/posts/microservices/#fn:6" class="footnote">10</a></sup>, etc.</p>
+
+    <p>Most of us enjoy learning new things, but a) <a href="https://en.wikipedia.org/wiki/Change_management">that’s not <em>all</em> of us</a>,
+ and b) it
+ takes time and energy, repeating mistakes, including big ones, to
+ learn ; and potentially to scrap v1 and restart from scratch. This is an
+ investment that should be considered when deciding.</p>
+
+    <p><em>Management</em> also needs to be comfortable with refactoring early on, or
+ even starting over if <s>things are really bad</s> the learnings are strong.
+ This is not natural, and is a skill that need to be acquired.</p>
+
+    <blockquote>
+      <p>Fail often. Fail early. Fail fast. Embracing failure is a means to a successful end. 
+Instead of fearing failure, become empowered by it.</p>
+
+      <p>Gary Burnison, <a href="https://www.kornferry.com/institute/fail-fast-learn-fast">CEO of Korn Ferry</a></p>
+    </blockquote>
+
+    <p>Embracing failure is not an easy thing to learn because of the 
+ <a href="https://en.wikipedia.org/wiki/Escalation_of_commitment">sunk cost fallacy</a><sup id="fnref:17"><a href="https://www.feval.fr/posts/microservices/#fn:17" class="footnote">11</a></sup>.</p>
+  </li>
+  <li>
+    <p>Team is <strong>not mature</strong><sup id="fnref:14"><a href="https://www.feval.fr/posts/microservices/#fn:14" class="footnote">12</a></sup>, technical <strong>skillset is not adapted</strong><sup id="fnref:9"><a href="https://www.feval.fr/posts/microservices/#fn:9" class="footnote">13</a></sup>,
+  or <strong>turnover is high</strong><sup id="fnref:3"><a href="https://www.feval.fr/posts/microservices/#fn:3" class="footnote">14</a></sup>.
+  Since code cleanliness and architecture tend to <a href="http://www.rntz.net/post/against-software-development.html">decay
+  over time</a> because
+  of entropy, and since a more complex architecture is harder to maintain, this
+  may exacerbate consequences of point 4.</p>
+
+    <p>Incomprehension and pressure tends to have people <a href="https://en.wikipedia.org/wiki/Status_quo_bias">fallback to what they 
+  know</a>. They will cut corners
+  to get things out, or just escape complexity by going the shortest path.
+  And soon the architecture might get contaminated into technical components, 
+  “core” libraries, references to packages from other services, orchestrators,
+  “CSV Import Services”, services will start to tap into each other’s database.
+  Next thing you know someone will start asking “how do we orchestrate our
+  deployments to manage dependencies between services?”. This is the software
+  version of hell on earth, also called a <strong>distributed monolith</strong>:</p>
+
+    <p><img src="./assets/dependency-hell.png" alt=""></p>
+
+    <p>The complexity of operation and debugging might imped ramp up and general
+  efficiency. Complexity of investigating bugs and analyzing logs across
+  services might redirect those tasks only on those more skilled team members,
+  whose focus should be long term rather than fire-fighting. 
+  In short - this situation is likely to
+  have the team pay for all the consequences of microservices without 
+  its advantages.</p>
+  </li>
+</ol>
+
+<h1 id="then-what">Then what?</h1>
+
+<blockquote>
+  <p>All software systems can be decomposed into two major elements: policy and details. The policy element embodies all the business rules and procedures. The policy is where the true value of the system lives.</p>
+
+  <p>The details are those things that are necessary to enable humans, other systems, and programmers to communicate with the policy, but that do not impact the behavior of the policy at all. They include IO devices, databases, web systems, servers, frameworks, communication protocols, and so forth.</p>
+
+  <p>The goal of the architect is to create a shape for the system that recognizes policy as the most essential element of the system while making the details irrelevant to that policy. <strong>This allows decisions about those details to be delayed and deferred</strong>.</p>
+
+  <p>~ Robert C. Martin, Clean Architecture</p>
+</blockquote>
+
+<p>If the application you are building has a fairly clear domain, will
+undergo a considerable and variable scale, requires a large team
+to be built from the get go, that you are confident in your team’s
+skill and have some experience or at the very least literacy in 
+distributed design, and have the management’s support to fail and
+learn, microservices is a good candidate.</p>
+
+<p>But be conscious that a microservice layout may backfire. If the current context matches 
+what was described, it might be wiser to start with something simpler,
+such as a monolith or a layered architecture (which may itself 
+contain a few specialized services). Most of
+what a microservice architecture brings can also be achieved with other solutions.</p>
+
+<p><strong>Low coupling, scalability, and futureproof-ness</strong> is coming from a carefully planned 
+<em>application</em> architecture, with clearly defined boundaries and specialized datastores.
+Microservices only exacerbate that by providing physical limits. Another
+way to create physical limits is through components (DLLs, JARs). The point
+being that picking a component architecture and a deployment architecture
+should be delayed as long as you can<sup id="fnref:4"><a href="https://www.feval.fr/posts/microservices/#fn:4" class="footnote">15</a></sup>.</p>
+
+<p><strong>Containers and infrastructure</strong> as code can also be used with or
+without a microservice architecture. And in fact, they tend to
+be simpler to implement, since the networking is straight forward
+and the number of configurations is less important. They still
+bring the benefits of constructing and destroying environments at
+will, and facilitating the creation of development environments.</p>
+
+<p><strong>Build automation, and frequent releases</strong>, can be 
+achieved through <a href="https://www.feval.fr/posts/Less-WIP/">increased focus and reduced WIP</a>, <a href="https://www.feval.fr/posts/Small-batches/">small batches</a>, <a href="https://www.feval.fr/posts/Atomic-Change-Flow-A-simple-yet-very-effective-source-control-workflow/">atomic change flow</a>,
+and reduced coordination.</p>
+
+<p>Don’t misunderstand me, I’m painting a pretty grim image
+of microservices here, while at the same time definitely
+believing in the solution. Microservices are definitely
+a good option for complex, distributed systems.</p>
+
+<p>But they’re not the only one, and their
+appeal tend to precipitate decisions in their favor while
+disregarding the factors that were mentioned. One should
+consider options and make a conscious, educated and
+rational choice.</p>
+
+<h1 id="notes">Notes</h1>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:11">
+      <p>Martin Fowler has identified a list of <a href="https://martinfowler.com/bliki/MicroservicePrerequisites.html">pre-requisites to microservices</a>.
+ThoughtWorks is keeping <a href="https://www.thoughtworks.com/insights/blog/microservices-adopt">microservices in their “trial”</a>
+category of their radar (which basically means: it’s not the default, try 
+it before you adopt it.) and mentioned it would probably never move.
+I also came across this interesting read
+about <a href="https://medium.com/@rbarcia/its-time-to-stop-making-microservices-the-goal-of-modernization-71758b400287">stopping to make microservices the goal of modernization</a>
+by a distinguished engineer at IBM, and this one by <a href="https://dwmkerr.com/the-death-of-microservice-madness-in-2018/">David Kerr</a>.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:11" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:10">
+      <p>A few used here: <a href="https://samnewman.io/books/building_microservices/">Sam Newman</a>, <a href="https://martinfowler.com/articles/microservices.html">Lewis and Fowler</a>, <a href="https://en.wikipedia.org/wiki/Microservices">Wikipedia</a>, <a href="https://www.safaribooksonline.com/library/view/microservices-antipatterns-and/9781492042716/">Mark Richards</a>, <a href="https://blog.cleancoder.com/uncle-bob/2014/10/01/CleanMicroserviceArchitecture.html">Uncle Bob</a>&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:10" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:12">
+      <p>Each service needs to remain independent, and at
+    the same time guarantee some stability to its consumers. Each time a service modifies its API, its consumers
+    need to be updated as well. But these might not be known,
+    and the upgrade of their clients should not
+    be on the critical path to delivering new features.
+    The direct consequence is that each individual 
+    microservice’s API needs to be versioned 
+    individually, and old versions need to be maintained for a
+    while. 
+    This creates friction to change, which
+    ironically might reduce your agility. The fact that cross service interaction is
+    API based also removes all those nice refactoring features from your
+    favorite IDE, when you want to refactor across services&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:12" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:13">
+      <p>Since communication is happening over the network rather than in process,
+    latency for each call is counted in 10s or 100s of milliseconds rather
+    than fractions of nanoseconds. Assuming 100ms per service call (which
+    isn’t unrealistic under load), if a call composes 3 services,
+    that’s already 300ms <em>in networking alone</em>.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:13" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:15">
+      <p>This is typically solved either synchronously through complex mechanisms 
+    of orchestrations, or asynchronously with compensating mechanisms or
+    eventual consistency - all of which are hard.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:15" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:16">
+      <p>Consistency problems
+    also mean inter-service locking, introducing deadlocks, race-conditions,
+    and hard-to-detect re-entrancy issues (A calls B calls C calls A calls B …
+    until something times out, then go figure what happened). <strong>Race-conditions</strong>
+    that were so improbable you could consider them impossible when in-process, 
+    become not only probable but actually happen in microservices. And you now 
+    end up with something getting deadlocked
+    3 times a week with nothing correlating what is happening, and several
+    weeks of debugging (true story).&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:16" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:1">
+      <p>the cost of maintaining a microservice execution architecture is higher than the benefits it generates.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:1" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:2">
+      <p>see: <a href="https://www.goodreads.com/book/show/179133.Domain_Driven_Design">Domain Driven Design</a> by E. Evans, and <a href="https://www.goodreads.com/book/show/15756865-implementing-domain-driven-design">Implementing DDD</a> by V. Vernon, and the <a href="https://docs.microsoft.com/en-us/azure/architecture/microservices/">Microsoft Architecture Center</a>.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:2" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:7">
+      <p>if your “reporting service” starts querying databases of microservices, it’s already too late.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:7" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:6">
+      <p>if you start investigating how to orchestrate the deployment of your services in a specific order and prevent the “end to end” tests to run until all the services are deployed, it’s already too late.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:6" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:17">
+      <p>I’ve seen more than once VPs of engineering or similar position getting
+    annoyed and frustrated when I explained a few weeks or a couple
+    of months in a project that we realized our architecture
+    choice was wrong, and we would need major refactoring. “Why can’t you get it right from the beginning?”&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:17" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:14">
+      <p>By definition, half of people and teams are below the average maturity level.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:14" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:9">
+      <p>Team lacks experience with test-driven development, code review process, high targets of test coverage (&gt;90%), devops, infrastructure as code, continuous integration and continuous deployment, reducing their work in process, frequent deployments (frequent in this context is multiple a day), instrumented monitoring and logging.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:9" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:3">
+      <p>for example, if the organization has a lot of coops, juniors, or a lot of contractors.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:3" class="reversefootnote">↩</a></p>
+    </li>
+    <li id="fn:4">
+      <p>Uncle
+  Bob has entire chapters on that topic in <a href="https://www.goodreads.com/book/show/18043011-clean-architecture">Clean Architecture</a>,
+  starting with <a href="https://blog.cleancoder.com/uncle-bob/2014/10/01/CleanMicroserviceArchitecture.html">this article</a>.&nbsp;<a href="https://www.feval.fr/posts/microservices/#fnref:4" class="reversefootnote">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+
+
+  <div class="post-related">
+    <h1>Related</h1>
+    <ul class="post-list" id="list">
+    <li>
+            <a href="https://www.feval.fr/posts/multitier-auth/"><span class="post-title">AAD Authentication/Authorization in a multitier app service</span><br>
+                <span class="post-meta">2018-05-09 | Azure, Code, Architecture, Authentication, Security, App Services</span>
+            </a>
+        </li><li>
+            <a href="https://www.feval.fr/posts/auth-proxy/"><span class="post-title">Authentication Proxy - a pattern to add authentication to key-based secured resources</span><br>
+                <span class="post-meta">2018-05-14 | Architecture, Code, Authentication, Security, Azure, Cloud</span>
+            </a>
+        </li><li>
+            <a href="https://www.feval.fr/posts/My-desk/"><span class="post-title">My desk - A Tale on Technical Debt</span><br>
+                <span class="post-meta">2015-07-30 | Process</span>
+            </a>
+        </li></ul>
+  </div>
+
+  <script type="text/javascript">
+    var title = "When not to use microservices".replace(/[^A-Za-z0-9=_-]/g, "");
+    document.searchClient.related(title, function(err, res) { document.searchClient.display(res.slice(0, 4)); });
+  </script>
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li><i class="fa fa-map-marker"></i> Vancouver BC, Canada</li>
+          <li><i class="fa fa-id-badge"></i> <a href="https://www.feval.fr/pages/about/">About me</a></li>
+          <li class="rss-subscribe"><i class="fa fa-rss"></i> <a href="https://www.feval.fr/feed.xml">RSS</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          <li><i class="fa fa-github"></i> <a href="https://github.com/cfe84">cfe84</a></li>
+          <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/cfe84">cfe84</a></li>
+          <li><i class="fa fa-linkedin"></i> <a href="https://www.linkedin.com/in/feval/">feval</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <ul>
+          <li>Content <i class="fa fa-copyright"></i> Charles Féval as dated on posts </li>
+          <li><img src="./assets/Build blog" style="margin-right: 0; margin-left: auto"></li>
+        </ul>
+      </div>
+    </div>
+
+  </div> 
+</footer>
+
+
+  
+
+
+</body></html>

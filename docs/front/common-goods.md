@@ -1,5 +1,8 @@
 # common goods
 
+## [weinre](https://people.apache.org/~pmuellr/weinre/docs/latest/Home.html)
+Weinre的本意是Web Inspector Remote，它是一种远程调试工具。功能与Firebug、Webkit inspector类似，可以帮助我们即时更改页面元素、样式，调试JS等
+
 ## [nginxconfig](https://nginxconfig.io)
 提供一个可视化的界面选中一些配置项，自动生成nginx 配置网站
 

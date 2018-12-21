@@ -53,3 +53,48 @@
       }
   }
   ```
+## 替换已有jar包的某个类
+
+* maven 姿势 使用abtrun
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-antrun-plugin</artifactId>
+    <version>1.6</version>
+    <executions>
+      <execution>
+        <id>repack</id>
+        <phase>compile</phase>
+        <goals>
+          <goal>run</goal>
+        </goals>
+        <configuration>
+          <target>
+            <!-- note that here we reference previously declared dependency -->
+            <unzip src="${org.apache:common-util:jar}" dest="${project.build.directory}/tmp"/>
+            <!-- now do what you need to any of unpacked files under target/tmp/ -->
+            <zip basedir="${project.build.directory}/tmp" destfile="${project.build.directory}/common-util-modified.jar"/>
+            <!-- now the modified jar is available  -->
+          </target>
+        </configuration>
+      </execution>
+    </executions>
+  </plugin>
+```
+[ref  maven-replace-a-file-in-a-jar](https://stackoverflow.com/questions/6307191/maven-replace-a-file-in-a-jar/7085511#7085511)
+`jar uf jar-file input-file(s)`
+`jar uf TicTacToe.jar -C images new.gif` -C change directory
+`jar uf TicTacToe.jar images/new.gif`
+* [Gradle 姿势](https://stackoverflow.com/questions/27946825/gradle-replace-class-file-into-modifying-the-manifest)
+
+```gradle
+task patchedJar(type: Zip, dependsOn: jar) {
+    extension 'jar'
+    from(zipTree(jar.archivePath)) {
+        exclude '**/MyClass.class'
+    }
+    from("patches/dir") {
+        include 'com/foo/package/MyClass.class'
+    }
+}
+```
