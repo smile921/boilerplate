@@ -6,11 +6,11 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '主页', link: '/' },
-      { text: '前端', link: '/frontEnd/' },
-      { text: '后端', link: '/backEnd/' },
-      { text: 'JAVA', link: '/java/' },
-      { text: '学习文档', link: '/notes/' },
-      { text: '其它', link: '/other/' },
+      { text: '前端', link: '/docs/front/ember-goods.html' },
+      { text: '后端', link: '/docs/note/java/jvm_princple_structure__gc_in_details.html' },
+      { text: 'JAVA', link: '/docs/note/java/JAVA-JIT-performancing.html' },
+      { text: '学习文档', link: '/docs/note/java/java-note-tips.html' },
+      { text: '其它', link: '/docs/note/java/latest-news.html' },
       // 下拉列表的配置
       {
         text: '语言',
