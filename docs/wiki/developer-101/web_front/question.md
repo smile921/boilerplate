@@ -1,0 +1,1 @@
+* [神马是AMD, CommonJS, UMD?](https://75team.com/post/%E8%AF%91%E7%A5%9E%E9%A9%AC%E6%98%AFamd-commonjs-umd.html)
