@@ -98,3 +98,14 @@ task patchedJar(type: Zip, dependsOn: jar) {
     }
 }
 ```
+
+
+## hsdis (HotSpot Disassembler)
+hsdis的安装只要把下载到，或者编绎好的so文件放到对应的Java安装路径下即可
+`eg hsdis-amd64.so 放到 /usr/lib/jvm/java-7-oracle/jre/lib/amd64/ `
+可以用下面这个命令来查看是否安装成功。
+
+`java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -version`
+如果输出有：
+`Java HotSpot(TM) 64-Bit Server VM warning: PrintAssembly is enabled`
+则安装成功。
